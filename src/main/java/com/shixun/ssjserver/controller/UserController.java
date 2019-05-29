@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -20,13 +22,35 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public String login(@RequestParam(value = "id") Integer id, @RequestParam("password") String password)
+    public Map login(@RequestParam(value = "id") Integer id, @RequestParam("password") String password)
     {
         Optional<UserEntity> optionalUserEntity = userDao.findById(id);
         String message;
         String stateCode;
-//        if(optionalUserEntity.isPresent())
-
-        return "ok";
+        Map<String, Object> map = new HashMap<>();
+        if(!optionalUserEntity.isPresent())
+        {
+            stateCode = "fail";
+            message  = "没有此用户";
+        }
+        else
+        {
+            UserEntity user = optionalUserEntity.get();
+            if(user.getPassword().equals(password))
+            {
+                stateCode = "success";
+                message = "登陆成功";
+                map.put("user", user);
+            }
+            else
+            {
+                stateCode = "fail";
+                message = "密码错误";
+            }
+        }
+        map.put("state", stateCode);
+        map.put("message", message);
+        return map;
     }
+
 }

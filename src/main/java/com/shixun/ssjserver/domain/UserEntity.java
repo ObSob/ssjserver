@@ -25,5 +25,5 @@ public class UserEntity {
     private String email;
 
     @Column
-    private Integer state;
+    private Integer state = 1;
 }
