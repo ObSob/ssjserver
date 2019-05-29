@@ -22,9 +22,9 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public Map login(@RequestParam(value = "id") Integer id, @RequestParam(value = "password") String password)
+    public Map login(@RequestParam(value = "email") String email, @RequestParam(value = "password") String password)
     {
-        Optional<UserEntity> optionalUserEntity = userDao.findById(id);
+        Optional<UserEntity> optionalUserEntity = userDao.findByEmail(email);
         String message;
         String stateCode;
         Map<String, Object> map = new HashMap<>();
