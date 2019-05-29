@@ -22,7 +22,7 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public Map login(@RequestParam(value = "id") Integer id, @RequestParam("password") String password)
+    public Map login(@RequestParam(value = "id") Integer id, @RequestParam(value = "password") String password)
     {
         Optional<UserEntity> optionalUserEntity = userDao.findById(id);
         String message;
@@ -53,4 +53,20 @@ public class UserController {
         return map;
     }
 
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @ResponseBody
+    public Map register(@RequestParam(value = "name") String name, @RequestParam(value = "password") String password, @RequestParam(value = "email") String email)
+    {
+        Map<String, Object> map = new HashMap<>();
+        UserEntity user = new UserEntity();
+        user.setName(name);
+        user.setPassword(password);
+        if(email != null)
+            user.setEmail(email);
+        UserEntity registeredUser = userDao.save(user);
+        map.put("state", "success");
+        map.put("message",  "注册成功");
+        map.put("user", registeredUser);
+        return map;
+    }
 }
