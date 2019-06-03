@@ -13,10 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("/file/upload")
@@ -118,6 +115,16 @@ public class FileUploadController {
         List<ArticleEntity> articleList = articleDao.findAllByUserid(userid);
         HashMap<String, Object> map = new HashMap<>();
         map.put("articlelist", articleList);
+        return map;
+    }
+
+    @RequestMapping(value = "/article/square")
+    @ResponseBody
+    public Map square()
+    {
+        List<ArticleEntity> articleEntityList = articleDao.findAllByIsShared(1);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("articlelist", articleEntityList);
         return map;
     }
 

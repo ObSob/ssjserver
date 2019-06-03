@@ -13,4 +13,6 @@ public interface ArticleDao extends JpaRepository<ArticleEntity, Integer> {
     Optional<ArticleEntity> findByCode(String code);
 
     List<ArticleEntity> findAllByUserid(Integer userid);
+
+    List<ArticleEntity> findAllByIsShared(Integer shared);
 }
