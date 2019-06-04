@@ -70,7 +70,7 @@ public class UserController {
         return map;
     }
 
-    @RequestMapping("/findbyid")
+    @RequestMapping(value = "/findbyid", method = RequestMethod.POST)
     @ResponseBody
     public Map findUserById(@RequestParam("userid") Integer userid)
     {
@@ -81,7 +81,7 @@ public class UserController {
         return map;
     }
 
-    @RequestMapping
+    @RequestMapping(value = "/updatepassword", method = RequestMethod.POST)
     @ResponseBody
     public Map updatePassword(@RequestParam("userid") Integer userid, @RequestParam("oldpassword") String oldPassword, @RequestParam("newpassword") String newPassword)
     {
