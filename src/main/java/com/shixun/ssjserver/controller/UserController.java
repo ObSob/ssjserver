@@ -69,4 +69,36 @@ public class UserController {
         map.put("user", registeredUser);
         return map;
     }
+
+    @RequestMapping("/findbyid")
+    @ResponseBody
+    public Map findUserById(@RequestParam("userid") Integer userid)
+    {
+        UserEntity user = userDao.getOne(userid);
+        Map<String, Object> map = new HashMap<>();
+        user.setPassword("");
+        map.put("user", user);
+        return map;
+    }
+
+    @RequestMapping
+    @ResponseBody
+    public Map updatePassword(@RequestParam("userid") Integer userid, @RequestParam("oldpassword") String oldPassword, @RequestParam("newpassword") String newPassword)
+    {
+        Map<String, Object> map = new HashMap<>();
+        UserEntity user = userDao.getOne(userid);
+        if(oldPassword.equals(user.getPassword()))
+        {
+            user.setPassword(newPassword);
+            userDao.save(user);
+            map.put("state", "success");
+            map.put("message", "修改密码成功");
+        }
+        else
+        {
+            map.put("state", "fail");
+            map.put("message", "原密码错误");
+        }
+        return map;
+    }
 }
