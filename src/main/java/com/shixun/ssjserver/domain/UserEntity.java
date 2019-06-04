@@ -1,5 +1,6 @@
 package com.shixun.ssjserver.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "user")
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
 public class UserEntity {
 
     @Id
