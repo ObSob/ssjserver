@@ -108,7 +108,7 @@ public class FileUploadController {
         return map;
     }
 
-    @RequestMapping(value = "/article/download", method = RequestMethod.GET)
+    @RequestMapping(value = "/article/download", method = RequestMethod.POST)
     @ResponseBody
     public Map downloadArticle(@RequestParam("userid") Integer userid)
     {
@@ -118,7 +118,7 @@ public class FileUploadController {
         return map;
     }
 
-    @RequestMapping(value = "/article/square")
+    @RequestMapping(value = "/article/square", method = RequestMethod.POST)
     @ResponseBody
     public Map square()
     {
